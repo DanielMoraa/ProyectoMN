@@ -12,7 +12,7 @@
     <title>Proyecto MN</title>
     <link href="../Styles/all.min.css" rel="stylesheet" type="text/css">
     <link href="../Styles/sb-admin-2.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
 </head>
 
@@ -29,9 +29,7 @@
                 <div class="sidebar-brand-text mx-3">Proyecto MN</div>
             </a>
 
-
             <hr class="sidebar-divider my-0">
-
 
             <li class="nav-item">
                 <a class="nav-link" href="index.html">
@@ -39,14 +37,11 @@
                     <span>Dashboard</span></a>
             </li>
 
-
             <hr class="sidebar-divider">
-
 
             <div class="sidebar-heading">
                 Interface
             </div>
-
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
@@ -62,7 +57,6 @@
                     </div>
                 </div>
             </li>
-
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
@@ -82,9 +76,7 @@
                 </div>
             </li>
 
-
             <hr class="sidebar-divider">
-
 
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
@@ -93,37 +85,18 @@
         </ul>
 
         <div id="content-wrapper" class="d-flex flex-column">
-
-
             <div id="content">
 
-    
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-        
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
 
-        
-                    <form
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                        <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                                aria-label="Search" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-
-        
                     <ul class="navbar-nav ml-auto">
+
                         <div class="topbar-divider d-none d-sm-block"></div>
 
-            
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -131,7 +104,6 @@
                                 <img class="img-profile rounded-circle"
                                     src="../Img/undraw_profile.svg">
                             </a>
-                
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="#">
@@ -145,7 +117,7 @@
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Cerrar Sesión
+                                    Salir
                                 </a>
                             </div>
                         </li>
@@ -153,19 +125,12 @@
                     </ul>
 
                 </nav>
-    
-
-    
+               
                 <div class="container-fluid">
 
-                
 
                 </div>
-    
-
             </div>
-
-
 
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
@@ -174,7 +139,6 @@
                     </div>
                 </div>
             </footer>
-
 
         </div>
 
@@ -197,7 +161,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.php">Logout</a>
+                    <a class="btn btn-primary" href="login.html">Logout</a>
                 </div>
             </div>
         </div>

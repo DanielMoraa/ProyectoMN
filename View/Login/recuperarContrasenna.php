@@ -1,3 +1,7 @@
+<?php
+    include_once $_SERVER["DOCUMENT_ROOT"] . "/Proyecto/Controller/LoginController.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,21 +17,22 @@
     <link href="../Styles/all.min.css" rel="stylesheet" type="text/css">
     <link href="../Styles/sb-admin-2.min.css" rel="stylesheet">
     <link href="../Styles/ui.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
 </head>
 
 <body class="bg-gradient-primary">
 
-<div class="container MargenSuperior">
+    <div class="container MargenSuperior">
 
-<div class="row justify-content-center">
+        <!-- Outer Row -->
+        <div class="row justify-content-center">
 
-    <div class="col-xl-10 col-lg-12 col-md-9">
+            <div class="col-xl-10 col-lg-12 col-md-9">
 
-        <div class="card o-hidden border-0 shadow-lg my-5">
-            <div class="card-body p-0">
-                        <!-- Nested Row within Card Body -->
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+
                         <div class="row">
                             <div class="col-lg-3"></div>
                             <div class="col-lg-6">
@@ -36,25 +41,21 @@
                                         <h1 class="h4 text-gray-900 mb-4">Recuperar Contraseña</h1>
                                     </div>
                                     <form class="user">
-                                    <div class="form-group">
+                                        <div class="form-group">
                                         <input type="email" class="form-control form-control-user"
-                                            placeholder="Correo" id ="txtCorreo" name="txtCorreo">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="password" class="form-control form-control-user"
-                                            placeholder="Contraseña" id ="txtContrasenna" name="txtContrasenna">
-                                    </div>
-                                    <a href="login.php" class="btn btn-danger btn-user btn-block">
-                                    Procesar
-                                    </a>
+                                        placeholder="Correo" id="txtCorreo" name="txtCorreo">
+                                        </div>
+                                        <input type="submit" class="btn btn-danger btn-user btn-block" value="Procesar"
+                                        id="btnRecuperarCuenta" name="btnRecuperarCuenta" >
+                                        </a>
                                     </form>
                                     <hr>
                                     <div class="text-center">
-                                    <a class="small" href="recuperarContrasenna.php">Recuperar Contraseña</a>
-                                </div>
-                                <div class="text-center">
-                                <a class="small" href="registrarCuenta.php">Crear Cuenta</a>
-                            </div>
+                                        <a class="small" href="registrarCuenta.php">Crear una Cuenta</a>
+                                    </div>
+                                    <div class="text-center">
+                                    <a class="small" href="login.php">Iniciar Sesión</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -64,8 +65,7 @@
             </div>
 
         </div>
-        </div>
-        </div>
+
     </div>
 
     <script src="../Scripts/jquery.min.js"></script>
