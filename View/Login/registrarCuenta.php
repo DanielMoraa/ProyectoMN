@@ -1,25 +1,12 @@
 <?php
     include_once $_SERVER["DOCUMENT_ROOT"] . "/Proyecto/Controller/LoginController.php";
+    include_once $_SERVER["DOCUMENT_ROOT"] . "/Proyecto/View/layoutExterno.php";
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Proyecto M.N</title>
-    <link href="../Styles/all.min.css" rel="stylesheet" type="text/css">
-    <link href="../Styles/sb-admin-2.min.css" rel="stylesheet">
-    <link href="../Styles/ui.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-</head>
+<?php PrintHeader(); ?>
 
 <body class="bg-gradient-primary">
 
@@ -43,7 +30,7 @@
                             <?php
                                 if(isset($_POST["Message"]))
                                 {
-                                    echo $_POST["Message"];
+                                    echo '<div class="alert alert-warning Mensajes">' . $_POST["Message"] . '</div>';                                   
                                 }
                             ?>
                             
@@ -51,7 +38,7 @@
                                 <div class="form-group">
                                     <input type="text" class="form-control form-control-user"
                                     placeholder="Identificación" id="txtIdentificacion" name="txtIdentificacion"
-                                    onkeyup="ConsultarNombre()">
+                                    onkeyup="ConsultarNombre()" required>
                                 </div>
                                 <div class="form-group">
                                     <input type="text" class="form-control form-control-user"
@@ -59,11 +46,11 @@
                                 </div>
                                 <div class="form-group">
                                     <input type="email" class="form-control form-control-user"
-                                        placeholder="Correo" id="txtCorreo" name="txtCorreo">
+                                        placeholder="Correo" id="txtCorreo" name="txtCorreo" required>
                                 </div>
                                 <div class="form-group">
                                     <input type="password" class="form-control form-control-user"
-                                        placeholder="Contraseña" id="txtContrasenna" name="txtContrasenna">
+                                        placeholder="Contraseña" id="txtContrasenna" name="txtContrasenna" required>
                                 </div>
                                 <input type="submit" class="btn btn-danger btn-user btn-block" value="Procesar"
                                         id="btnRegistrarCuenta" name="btnRegistrarCuenta" >
@@ -86,11 +73,7 @@
 
     </div>
 
-    <script src="../Scripts/jquery.min.js"></script>
-    <script src="../Scripts/bootstrap.bundle.min.js"></script>
-    <script src="../Scripts/jquery.easing.min.js"></script>
-    <script src="../Scripts/sb-admin-2.min.js"></script>
-    <script src="../Scripts/comunes.js"></script>
+    <?php PrintFooter(); ?>
 
 </body>
 

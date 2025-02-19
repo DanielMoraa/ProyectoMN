@@ -3,24 +3,40 @@
 
     function RegistrarCuentaModel($identificacion,$nombre,$correo,$contrasenna)
     {
-        $context = AbrirBaseDatos();
+        try 
+        {
+            $context = AbrirBaseDatos();
 
-        $sentencia = "CALL SP_RegistrarCuenta('$identificacion','$nombre','$correo','$contrasenna')";
-        $resultado = $context -> query($sentencia);
+            $sentencia = "CALL SP_RegistrarCuenta('$identificacion','$nombre','$correo','$contrasenna')";
+            $resultado = $context -> query($sentencia);
 
-        CerrarBaseDatos($context);
-        return $resultado;
+            CerrarBaseDatos($context);
+            return $resultado;
+        } 
+        catch (Exception $error) 
+        {
+            return false;
+        }
+        
     }
 
     function IniciarSesionModel($identificacion,$contrasenna)
     {
-        $context = AbrirBaseDatos();
+        try
+        {
+            $context = AbrirBaseDatos();
 
-        $sentencia = "CALL SP_IniciarSesion('$identificacion','$contrasenna')";
-        $resultado = $context -> query($sentencia);
-
-        CerrarBaseDatos($context);
-        return $resultado;
+            $sentencia = "CALL SP_IniciarSesion('$identificacion','$contrasenna')";
+            $resultado = $context -> query($sentencia);
+    
+            CerrarBaseDatos($context);
+            return $resultado;
+        }
+        catch(Exception $error)
+        {
+            return null;
+        }
+        
     }
 
 ?>
