@@ -34,7 +34,9 @@
         if($resultado != null && $resultado -> num_rows > 0)
         {
             $datos = mysqli_fetch_array($resultado);
-            $_SESSION["NombreUsuario"] = $datos["Nombre"];
+            $_SESSION["NombreUsuario"] = $datos["NombreUsuario"];
+            $_SESSION["NombrePerfil"] = $datos["NombrePerfil"];
+            $_SESSION["IdPerfil"] = $datos["IdPerfil"];
 
             header('location: ../../View/Login/home.php');
         }

@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php PrintHeader(); ?>
+<?php PrintCss(); ?>
 
 <body class="bg-gradient-primary">
 
@@ -73,7 +73,7 @@
 
     </div>
 
-    <?php PrintFooter(); ?>
+    <?php PrintScript(); ?>
 
 </body>
 

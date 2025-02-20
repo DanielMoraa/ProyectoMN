@@ -16,8 +16,7 @@
         catch (Exception $error) 
         {
             return false;
-        }
-        
+        }        
     }
 
     function IniciarSesionModel($identificacion,$contrasenna)
@@ -35,8 +34,7 @@
         catch(Exception $error)
         {
             return null;
-        }
-        
+        }        
     }
 
 ?>
