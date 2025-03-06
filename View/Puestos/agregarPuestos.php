@@ -1,5 +1,5 @@
 <?php
-    include_once $_SERVER["DOCUMENT_ROOT"] . "/Proyecto/Controller/OfertasController.php";
+    include_once $_SERVER["DOCUMENT_ROOT"] . "/Proyecto/Controller/PuestosController.php";
     include_once $_SERVER["DOCUMENT_ROOT"] . "/Proyecto/View/layoutInterno.php";
 ?>
 
@@ -21,39 +21,39 @@
 
                 <div class="container-fluid">
 
-                <div style="text-align:right; margin:10px;">
-                    <a class="btn btn-outline-primary" href="agregarOfertas.php"><i class="fa fa-plus"></i> Agregar </a>
-                </div>
+                <div class="row">
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-8">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">Crear Puesto</h1>
+                            </div>
 
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Puesto</th>
-                                <th>Descripción</th>
-                                <th>Salario</th>
-                                <th>Horario</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
                             <?php
-                                $datos = ConsultarOfertas();
-
-                                while($row = mysqli_fetch_array($datos))
+                                if(isset($_POST["Message"]))
                                 {
-                                    echo "<tr>";
-                                    echo "<td>" . $row["Id"] . "</td>";
-                                    echo "<td>" . $row["Nombre"] . "</td>";
-                                    echo "<td>" . $row["Descripcion"] . "</td>";
-                                    echo "<td>" . $row["Salario"] . "</td>";
-                                    echo "<td>" . $row["Horario"] . "</td>";
-                                    echo "<td><a href='actualizarOfertas.php?q=" . $row["Id"] . "'><i class='fa fa-edit'></i></td>";
-                                    echo "</tr>";
+                                    echo '<div class="alert alert-warning Mensajes">' . $_POST["Message"] . '</div>';                                   
                                 }
                             ?>
-                        </tbody>
-                    </table>
+                            
+                            <form action="" method="POST" class="user">
+                                <div class="form-group">
+                                    <input type="text" class="form-control"
+                                    placeholder="Nombre" id="txtNombre" name="txtNombre" maxlength="50" required>
+                                </div>
+                
+                                <div class="form-group">
+                                    <textarea class="form-control"
+                                        placeholder="Descripción" id="txtDescripcion" name="txtDescripcion" maxlength="255" rows="8" required ></textarea>
+                                </div>
+
+                                <input type="submit" class="btn btn-danger" style="width: 200px;" value="Procesar"
+                                        id="btnCrearPuesto" name="btnCrearPuesto">
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
 
                 </div>
             </div>

@@ -21,12 +21,17 @@
 
                 <div class="container-fluid">
 
+                <div style="text-align:right; margin:10px;">
+                    <a class="btn btn-outline-primary" href="agregarPuestos.php"><i class="fa fa-plus"></i> Agregar </a>
+                </div>
+
                     <table class="table">
                         <thead>
                             <tr>
                                 <th>#</th>
                                 <th>Nombre</th>
                                 <th>Descripción</th>
+                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -39,6 +44,7 @@
                                     echo "<td>" . $row["Id"] . "</td>";
                                     echo "<td>" . $row["Nombre"] . "</td>";
                                     echo "<td>" . $row["Descripcion"] . "</td>";
+                                    echo "<td><a href='actualizarPuestos.php?q=" . $row["Id"] . "'><i class='fa fa-edit'></i></td>";
                                     echo "</tr>";
                                 }
                             ?>
