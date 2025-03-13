@@ -36,8 +36,9 @@
         $puesto = $_POST["txtPuesto"];
         $salario = $_POST["txtSalario"];
         $horario = $_POST["txtHorario"];
+        $estado = $_POST["txtEstado"];
 
-        $resultado = ActualizarOfertaModel($id,$puesto,$salario,$horario);
+        $resultado = ActualizarOfertaModel($id,$puesto,$salario,$horario,$estado);
 
         if($resultado == true)
         {

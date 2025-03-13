@@ -27,21 +27,30 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Recuperar Contraseña</h1>
                                     </div>
-                                    <form class="user">
+
+                                    <?php
+                                        if(isset($_POST["Message"]))
+                                        {
+                                            echo '<div class="alert alert-warning Mensajes">' . $_POST["Message"] . '</div>';                                   
+                                        }
+                                    ?>
+
+                                    <form action="" method="POST">
                                         <div class="form-group">
-                                        <input type="email" class="form-control form-control-user"
-                                        placeholder="Correo" id="txtCorreo" name="txtCorreo">
+                                            <input type="email" class="form-control form-control-user"
+                                                placeholder="Correo" id="txtCorreo" name="txtCorreo" required>
                                         </div>
                                         <input type="submit" class="btn btn-danger btn-user btn-block" value="Procesar"
-                                        id="btnRecuperarCuenta" name="btnRecuperarCuenta" >
+                                            id="btnRecuperarCuenta" name="btnRecuperarCuenta">
                                         </a>
                                     </form>
+
                                     <hr>
                                     <div class="text-center">
                                         <a class="small" href="registrarCuenta.php">Crear una Cuenta</a>
                                     </div>
                                     <div class="text-center">
-                                    <a class="small" href="login.php">Iniciar Sesión</a>
+                                        <a class="small" href="login.php">Iniciar Sesión</a>
                                     </div>
                                 </div>
                             </div>
