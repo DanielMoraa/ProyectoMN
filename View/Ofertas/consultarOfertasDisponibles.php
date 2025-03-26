@@ -38,7 +38,7 @@
                         </thead>
                         <tbody>
                             <?php
-                                $datos = ConsultarOfertas();
+                                $datos = ConsultarOfertas(true);
 
                                 while($row = mysqli_fetch_array($datos))
                                 {

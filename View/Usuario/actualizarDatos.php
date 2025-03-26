@@ -1,6 +1,8 @@
 <?php
-    include_once $_SERVER["DOCUMENT_ROOT"] . "/Proyecto/Controller/PuestosController.php";
+    include_once $_SERVER["DOCUMENT_ROOT"] . "/Proyecto/Controller/UsuariosController.php";
     include_once $_SERVER["DOCUMENT_ROOT"] . "/Proyecto/View/layoutInterno.php";
+
+    $datosUsuario = ConsultarUsuario($_SESSION["IdUsuario"]);
 ?>
 
 <!DOCTYPE html>
@@ -26,7 +28,7 @@
                     <div class="col-lg-8">
                         <div class="p-5">
                             <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">Crear Puesto</h1>
+                                <h1 class="h4 text-gray-900 mb-4">Actualizar Puesto</h1>
                             </div>
 
                             <?php
@@ -37,18 +39,31 @@
                             ?>
                             
                             <form action="" method="POST">
+
                                 <div class="form-group">
-                                    <input type="text" class="form-control"
-                                    placeholder="Nombre" id="txtNombre" name="txtNombre" maxlength="50" required>
-                                </div>
-                
-                                <div class="form-group">
-                                    <textarea class="form-control"
-                                        placeholder="Descripción" id="txtDescripcion" name="txtDescripcion" maxlength="255" rows="8" required ></textarea>
+                                    Identificación
+                                    <input type="text" class="form-control form-control-user"
+                                    id="txtIdentificacion" name="txtIdentificacion"
+                                    onkeyup="ConsultarNombre()" required
+                                    value="<?php echo $datosUsuario["Identificacion"] ?>">
                                 </div>
 
+                                <div class="form-group">
+                                    Nombre
+                                    <input type="text" class="form-control form-control-user"
+                                    id="txtNombre" name="txtNombre" readonly
+                                    value="<?php echo $datosUsuario["NombreUsuario"] ?>">
+                                </div>
+
+                                <div class="form-group">
+                                    Correo
+                                    <input type="email" class="form-control form-control-user"
+                                        id="txtCorreo" name="txtCorreo" required
+                                        value="<?php echo $datosUsuario["Correo"] ?>">
+                                </div>
+                                 
                                 <input type="submit" class="btn btn-danger" style="width: 200px;" value="Procesar"
-                                        id="btnCrearPuesto" name="btnCrearPuesto">
+                                        id="btnActualizarDatos" name="btnActualizarDatos">
                             </form>
 
                         </div>

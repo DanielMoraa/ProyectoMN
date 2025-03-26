@@ -1,5 +1,6 @@
 <?php
     include_once $_SERVER["DOCUMENT_ROOT"] . "/Proyecto/Controller/LoginController.php";
+    include_once $_SERVER["DOCUMENT_ROOT"] . "/Proyecto/Controller/OfertasUsuarioController.php";
     include_once $_SERVER["DOCUMENT_ROOT"] . "/Proyecto/View/layoutInterno.php";
 ?>
 
@@ -21,6 +22,14 @@
                
                 <div class="container-fluid">
 
+                    <?php
+                        $datos = ConsultarOfertasUsuario($_SESSION["IdUsuario"]);
+
+                        while($row = mysqli_fetch_array($datos))
+                        {
+                                
+                        }
+                    ?>
 
                 </div>
             </div>

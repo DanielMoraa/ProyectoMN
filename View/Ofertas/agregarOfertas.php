@@ -37,7 +37,7 @@
                                 }
                             ?>
                             
-                            <form action="" method="POST" class="user">
+                            <form action="" method="POST">
                                 <div class="form-group">
                                     <select class="form-control" id="txtPuesto" name="txtPuesto" required>
                                         <?php

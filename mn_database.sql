@@ -123,7 +123,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (5,'305340063','SEBASTIAN ADOLFO MORA FIGUEROA','smora40063@ufide.ac.cr','40063',1),(11,'304590415','EDUARDO JOSE CALVO CASTILLO','ecalvo90415@ufide.ac.cr','90415',2),(12,'305230298','IGNACIO ENRIQUE VARGAS MENDOZA','ivargas30298@ufide.ac.cr','OTSQ83',2);
+INSERT INTO `usuario` VALUES (5,'119020345','ROBERT ARTURO QUESADA BORBON','rquesada20345@ufide.ac.cr','40063',1),(12,'305230298','IGNACIO ENRIQUE VARGAS MENDOZA','ivargas30298@ufide.ac.cr','30298',2);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -145,7 +145,7 @@ CREATE TABLE `usuario_oferta` (
   KEY `FK_RELACION_OFERTA` (`IdOferta`),
   CONSTRAINT `FK_RELACION_OFERTA` FOREIGN KEY (`IdOferta`) REFERENCES `oferta` (`Id`),
   CONSTRAINT `FK_RELACION_USUARIO` FOREIGN KEY (`IdUsuario`) REFERENCES `usuario` (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -154,6 +154,7 @@ CREATE TABLE `usuario_oferta` (
 
 LOCK TABLES `usuario_oferta` WRITE;
 /*!40000 ALTER TABLE `usuario_oferta` DISABLE KEYS */;
+INSERT INTO `usuario_oferta` VALUES (1,12,2,'2025-03-19 20:43:43.000000',1);
 /*!40000 ALTER TABLE `usuario_oferta` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -172,13 +173,33 @@ UNLOCK TABLES;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ActualizarContrasenna`(
 	pId 	bigint(20),
-	pCodigo varchar(6)
+	pContrasennaNueva varchar(15),
+    pContrasennaActual varchar(15)
 )
 BEGIN
 
-	UPDATE 	usuario
-    SET 	Contrasenna = pCodigo
+	DECLARE vActual varchar(15);
+    DECLARE vResultado bool;
+    
+    SELECT  Contrasenna INTO vActual
+    FROM 	usuario
     WHERE 	Id = pId;
+
+	IF vActual = pContrasennaActual THEN
+		
+		UPDATE 	usuario
+		SET 	Contrasenna = pContrasennaNueva
+		WHERE 	Id 			= pId;
+        
+        SET vResultado = true;
+
+	else
+    
+		SET vResultado = false;
+
+	END IF;
+    
+    SELECT vResultado AS 'Resultado';
 
 END ;;
 DELIMITER ;
@@ -240,6 +261,34 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `SP_ActualizarUsuario` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ActualizarUsuario`(pId bigint(20), 
+										 pIdentificacion varchar(15), 
+										 pNombre varchar(250), 
+                                         pCorreo varchar(100))
+BEGIN
+
+	UPDATE usuario
+    SET Identificacion = pIdentificacion,
+		Nombre = pNombre,
+        Correo = pCorreo
+	WHERE Id = pId;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `SP_ConsultarOferta` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -282,8 +331,12 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ConsultarOfertas`()
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ConsultarOfertas`(pEstado bit)
 BEGIN
+
+	if pEstado = false then
+		set pEstado = null;
+	end if;
 
 	SELECT 	O.Id,
 			IdPuesto,
@@ -294,8 +347,36 @@ BEGIN
             Estado,
             CASE WHEN Estado = 1 THEN 'Activo' ELSE 'Inactivo' END DescripcionEstado
 	FROM 	oferta O
-    INNER JOIN puesto P ON O.IdPuesto = P.Id;
+    INNER JOIN puesto P ON O.IdPuesto = P.Id
+    WHERE Estado = IFNULL(pEstado,Estado);
 
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `SP_ConsultarOfertasUsuario` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ConsultarOfertasUsuario`(pId bigint(20))
+BEGIN
+
+	SELECT	Id,
+			IdUsuario,
+			IdOferta,
+			Fecha,
+			Estado
+		FROM usuario_oferta
+	WHERE IdUsuario = pId;
+    
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -344,6 +425,36 @@ BEGIN
 			Nombre,
 			Descripcion
 	FROM 	puesto;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `SP_ConsultarUsuario` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ConsultarUsuario`(pId bigint(20))
+BEGIN
+
+	SELECT	U.Id,
+			Identificacion,
+			U.Nombre 'NombreUsuario',
+			Correo,
+			Contrasenna,
+            IdPerfil,
+            P.Nombre 'NombrePerfil'
+	FROM 	usuario U
+    INNER JOIN perfil P ON U.IdPerfil = P.Id 
+	WHERE 	U.Id = pId;
 
 END ;;
 DELIMITER ;
@@ -429,6 +540,32 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `SP_RecuperarContrasenna` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RecuperarContrasenna`(
+	pId 	bigint(20),
+	pCodigo varchar(6)
+)
+BEGIN
+
+	UPDATE 	usuario
+    SET 	Contrasenna = pCodigo
+    WHERE 	Id = pId;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `SP_RegistrarCuenta` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -498,4 +635,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-12 20:58:45
+-- Dump completed on 2025-03-20  0:12:05

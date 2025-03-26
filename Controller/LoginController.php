@@ -1,5 +1,6 @@
 <?php
     include_once $_SERVER["DOCUMENT_ROOT"] . "/Proyecto/Model/LoginModel.php";
+    include_once $_SERVER["DOCUMENT_ROOT"] . "/Proyecto/Controller/UtilitariosController.php";
 
     if(session_status() == PHP_SESSION_NONE){
         session_start();
@@ -34,6 +35,8 @@
         if($resultado != null && $resultado -> num_rows > 0)
         {
             $datos = mysqli_fetch_array($resultado);
+            $_SESSION["IdUsuario"] = $datos["Id"];
+            $_SESSION["CorreoUsuario"] = $datos["Correo"];
             $_SESSION["NombreUsuario"] = $datos["NombreUsuario"];
             $_SESSION["NombrePerfil"] = $datos["NombrePerfil"];
             $_SESSION["IdPerfil"] = $datos["IdPerfil"];
@@ -64,7 +67,7 @@
             $codigo = GenerarCodigo();
 
             //Actualizar Contraseña por el código
-            $resultadoActualizacion = ActualizarContrasennaModel($datos["Id"], $codigo);
+            $resultadoActualizacion = RecuperarContrasennaModel($datos["Id"], $codigo);
 
             //Enviamos el correo
             $contenido = "<html><body>
@@ -95,47 +98,6 @@
             $pass[] = $alphabet[$n];
         }
         return implode($pass);
-    }
-
-    function EnviarCorreo($asunto,$contenido,$destinatario)
-    {
-        require 'PHPMailer/src/PHPMailer.php';
-        require 'PHPMailer/src/SMTP.php';
-
-        $correoSalida = "ecalvo90415@ufide.ac.cr";
-        $contrasennaSalida = "XXXXXXXXXXX";
-
-        $mail = new PHPMailer();
-        $mail -> CharSet = 'UTF-8';
-
-        $mail -> IsSMTP();
-        $mail -> IsHTML(true); 
-        $mail -> Host = 'smtp.office365.com';
-        $mail -> SMTPSecure = 'tls';
-        $mail -> Port = 587;                      
-        $mail -> SMTPAuth = true;
-        $mail -> Username = $correoSalida;               
-        $mail -> Password = $contrasennaSalida;                                
-        
-        $mail -> SetFrom($correoSalida);
-        $mail -> Subject = $asunto;
-        $mail -> MsgHTML($contenido);   
-        $mail -> AddAddress($destinatario);
-
-        try 
-        {
-            if ($mail->send()) 
-            {
-                return true; // Envío exitoso
-            } 
-            else 
-            {
-                return false; // Falló el envío
-            }
-        } catch (Exception $e) 
-        {
-            return false;
-        }
     }
 
 ?>

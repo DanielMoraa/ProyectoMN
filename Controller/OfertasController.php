@@ -1,9 +1,9 @@
 <?php
     include_once $_SERVER["DOCUMENT_ROOT"] . "/Proyecto/Model/OfertasModel.php";
 
-    function ConsultarOfertas()
+    function ConsultarOfertas($estado)
     {
-        return ConsultarOfertasModel();
+        return ConsultarOfertasModel($estado);
     }
 
     function ConsultarOferta($id)

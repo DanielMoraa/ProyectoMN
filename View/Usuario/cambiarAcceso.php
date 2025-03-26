@@ -1,5 +1,5 @@
 <?php
-    include_once $_SERVER["DOCUMENT_ROOT"] . "/Proyecto/Controller/PuestosController.php";
+    include_once $_SERVER["DOCUMENT_ROOT"] . "/Proyecto/Controller/UsuariosController.php";
     include_once $_SERVER["DOCUMENT_ROOT"] . "/Proyecto/View/layoutInterno.php";
 ?>
 
@@ -26,7 +26,7 @@
                     <div class="col-lg-8">
                         <div class="p-5">
                             <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">Crear Puesto</h1>
+                                <h1 class="h4 text-gray-900 mb-4">Actualizar Contraseña</h1>
                             </div>
 
                             <?php
@@ -37,18 +37,27 @@
                             ?>
                             
                             <form action="" method="POST">
+
                                 <div class="form-group">
-                                    <input type="text" class="form-control"
-                                    placeholder="Nombre" id="txtNombre" name="txtNombre" maxlength="50" required>
-                                </div>
-                
-                                <div class="form-group">
-                                    <textarea class="form-control"
-                                        placeholder="Descripción" id="txtDescripcion" name="txtDescripcion" maxlength="255" rows="8" required ></textarea>
+                                    Contraseña Actual
+                                    <input type="password" class="form-control"
+                                    id="txtContrasennaActual" name="txtContrasennaActual" maxlength="15" required>
                                 </div>
 
+                                <div class="form-group">
+                                    Contraseña Nueva
+                                    <input type="password" class="form-control"
+                                    id="txtContrasennaNueva" name="txtContrasennaNueva" maxlength="15" required>
+                                </div>
+
+                                <div class="form-group">
+                                    Confirmar Contraseña
+                                    <input type="password" class="form-control"
+                                    id="txtContrasennaConfirmar" name="txtContrasennaConfirmar" maxlength="15" required>
+                                </div>
+                
                                 <input type="submit" class="btn btn-danger" style="width: 200px;" value="Procesar"
-                                        id="btnCrearPuesto" name="btnCrearPuesto">
+                                        id="btnActualizarContrasenna" name="btnActualizarContrasenna">
                             </form>
 
                         </div>

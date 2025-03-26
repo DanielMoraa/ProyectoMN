@@ -39,7 +39,7 @@
                                 }
                             ?>
                             
-                            <form action="" method="POST" class="user">
+                            <form action="" method="POST">
 
                                 <div class="form-group">
                                     <input type="hidden" class="form-control"
