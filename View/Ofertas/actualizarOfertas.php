@@ -39,7 +39,7 @@
                                 }
                             ?>
                             
-                            <form action="" method="POST">
+                            <form action="" method="POST" enctype="multipart/form-data">
 
                                 <div class="form-group">
                                     <input type="hidden" class="form-control"
@@ -81,8 +81,20 @@
                                 </div>
 
                                 <div class="form-group">
-                                    ¿Está disponible? 
-                                    <input type="checkbox" id="txtEstado" name="txtEstado" <?php echo $datosOferta["IndicadorEstado"] ?>>                                                                    
+                                    <div class="row">
+                                        <div class="col-lg-9 col-md-7 col-sm-6">
+                                           <input type="file" class="form-control" id="txtImagen" name="txtImagen" accept="image/png, image/jpg, image/jpeg">
+                                        </div>
+                                        <div class="col-lg-3 col-md-5 col-sm-6" style="margin-top:10px;">
+                                            ¿Disponible? 
+                                            <input type="checkbox" id="txtEstado" name="txtEstado" <?php echo $datosOferta["IndicadorEstado"] ?>>  
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <img class="card-img-top" src="<?php echo $datosOferta["Imagen"] ?>" alt="Imagen No Disponible"
+                                    style="width:20%; height:175px;">
                                 </div>
 
                                 <input type="submit" class="btn btn-danger" style="width: 200px;" value="Procesar"

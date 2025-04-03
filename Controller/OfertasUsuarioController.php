@@ -7,8 +7,7 @@
 
     function ConsultarOfertasUsuario($Id)
     {
-        $resultado = ConsultarOfertasUsuarioModel($Id);
-        return mysqli_fetch_array($resultado);
+        return ConsultarOfertasUsuarioModel($Id);
     }
 
 ?>

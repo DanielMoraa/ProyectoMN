@@ -21,15 +21,41 @@
                 <?php BarraNavegacion(); ?>
                
                 <div class="container-fluid">
+                    <div class="row">
 
                     <?php
                         $datos = ConsultarOfertasUsuario($_SESSION["IdUsuario"]);
 
-                        while($row = mysqli_fetch_array($datos))
+                        if($datos != null)
                         {
-                                
+                            While($fila = mysqli_fetch_array($datos))
+                            {
+                                echo '
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                        <div class="card">
+
+                                            <div class="text-center">
+                                                <img class="card-img-top" src="' . $fila["Imagen"] . '" alt="Imagen No Disponible"
+                                                style="width:40%; height:200px;">
+                                            </div>
+
+                                            <div class="card-body">
+                                                <h5 class="card-title"> #' . $fila["IdOferta"] . ' ' . $fila["Nombre"] . '</h5>
+                                                <p class="card-text">
+                                                Salario: $ ' . $fila["Salario"] . '<br/>
+                                                Horario:' . $fila["Horario"] . '<br/>
+                                                Estado Actual: ' . $fila["DescripcionEstado"] . '</p>
+
+                                                <div class="text-center">
+                                                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>';  
+                            }
                         }
                     ?>
+                    </div>
 
                 </div>
             </div>

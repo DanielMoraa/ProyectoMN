@@ -37,7 +37,7 @@
                                 }
                             ?>
                             
-                            <form action="" method="POST">
+                            <form action="" method="POST" enctype="multipart/form-data">
                                 <div class="form-group">
                                     <select class="form-control" id="txtPuesto" name="txtPuesto" required>
                                         <?php
@@ -60,6 +60,12 @@
                                 <div class="form-group">
                                     <input type="text" class="form-control"
                                     placeholder="Horario" id="txtHorario" name="txtHorario" maxlength="255" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="file" class="form-control"
+                                    id="txtImagen" name="txtImagen" required
+                                    accept="image/png, image/jpg, image/jpeg">
                                 </div>
 
                                 <input type="submit" class="btn btn-danger" style="width: 200px;" value="Procesar"

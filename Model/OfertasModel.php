@@ -37,13 +37,13 @@
         }        
     }
 
-    function CrearOfertaModel($puesto,$salario,$horario)
+    function CrearOfertaModel($puesto,$salario,$horario,$imagen)
     {
         try 
         {
             $context = AbrirBaseDatos();
 
-            $sentencia = "CALL SP_CrearOferta('$puesto','$salario','$horario')";
+            $sentencia = "CALL SP_CrearOferta('$puesto','$salario','$horario','$imagen')";
             $resultado = $context -> query($sentencia);
 
             CerrarBaseDatos($context);
@@ -55,13 +55,13 @@
         }        
     }    
 
-    function ActualizarOfertaModel($Id,$puesto,$salario,$horario,$estado)
+    function ActualizarOfertaModel($Id,$puesto,$salario,$horario,$estado,$imagen)
     {
         try 
         {
             $context = AbrirBaseDatos();
 
-            $sentencia = "CALL SP_ActualizarOferta('$Id','$puesto','$salario','$horario','$estado')";
+            $sentencia = "CALL SP_ActualizarOferta('$Id','$puesto','$salario','$horario','$estado','$imagen')";
             $resultado = $context -> query($sentencia);
 
             CerrarBaseDatos($context);

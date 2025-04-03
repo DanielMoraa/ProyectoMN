@@ -18,6 +18,30 @@ USE `mn_database`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `estados`
+--
+
+DROP TABLE IF EXISTS `estados`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `estados` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Descripcion` varchar(200) NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `estados`
+--
+
+LOCK TABLES `estados` WRITE;
+/*!40000 ALTER TABLE `estados` DISABLE KEYS */;
+INSERT INTO `estados` VALUES (1,'En Proceso');
+/*!40000 ALTER TABLE `estados` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `oferta`
 --
 
@@ -30,10 +54,11 @@ CREATE TABLE `oferta` (
   `Salario` decimal(10,2) NOT NULL,
   `Horario` varchar(255) NOT NULL,
   `Estado` bit(1) DEFAULT NULL,
+  `Imagen` varchar(2500) DEFAULT NULL,
   PRIMARY KEY (`Id`),
   KEY `FK_OfertaPuesto` (`IdPuesto`),
   CONSTRAINT `FK_OfertaPuesto` FOREIGN KEY (`IdPuesto`) REFERENCES `puesto` (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +67,7 @@ CREATE TABLE `oferta` (
 
 LOCK TABLES `oferta` WRITE;
 /*!40000 ALTER TABLE `oferta` DISABLE KEYS */;
-INSERT INTO `oferta` VALUES (1,1,3500.00,'Lunes a Viernes de 8:00 a 17:00',_binary '\0'),(2,4,2350.00,'Lunes a Viernes de 08:00 am - 02:00 pm',_binary ''),(3,5,4250.00,'Lunes a Viernes',_binary '\0');
+INSERT INTO `oferta` VALUES (4,6,5350.00,'Lunes a Sábado de 8:00 a 18:00',_binary '','../Img/R.png'),(5,6,3250.00,'Lunes a Viernes de 8:00 a 17:00',_binary '','../Img/logo1.png'),(6,6,3250.00,'Lunes a Viernes de 8:00 a 17:00',_binary '','../Img/logo1.png');
 /*!40000 ALTER TABLE `oferta` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -82,7 +107,7 @@ CREATE TABLE `puesto` (
   `Nombre` varchar(50) NOT NULL,
   `Descripcion` varchar(255) NOT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -91,7 +116,7 @@ CREATE TABLE `puesto` (
 
 LOCK TABLES `puesto` WRITE;
 /*!40000 ALTER TABLE `puesto` DISABLE KEYS */;
-INSERT INTO `puesto` VALUES (1,'Programador','Principales tareas de un programador'),(2,'Asistente de Base de Datos','Principales tareas de un Asistente de Base de Datos'),(3,'Administrador de Capital Humano','Contratación\r\nSeguimiento de procesos\r\nSelección y Reclutamiento'),(4,'Capital Humano JR','Seguimiento a procesos nuevos'),(5,'Prueba2','Descripción de la prueba 2');
+INSERT INTO `puesto` VALUES (6,'Programador PHP','Desarrollar sistemas en PHP\r\nDesarrollar estructuras de base de datos en MySQL\r\nManejo de credenciales de usuario');
 /*!40000 ALTER TABLE `puesto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -123,7 +148,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (5,'119020345','ROBERT ARTURO QUESADA BORBON','rquesada20345@ufide.ac.cr','40063',1),(12,'305230298','IGNACIO ENRIQUE VARGAS MENDOZA','ivargas30298@ufide.ac.cr','30298',2);
+INSERT INTO `usuario` VALUES (5,'119020345','ROBERT ARTURO QUESADA BORBON','rquesada20345@ufide.ac.cr','20345',1),(12,'305230298','IGNACIO ENRIQUE VARGAS MENDOZA','ivargas30298@ufide.ac.cr','30298',2);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -143,9 +168,11 @@ CREATE TABLE `usuario_oferta` (
   PRIMARY KEY (`Id`),
   KEY `FK_RELACION_USUARIO` (`IdUsuario`),
   KEY `FK_RELACION_OFERTA` (`IdOferta`),
+  KEY `FK_EstadosUsuarioOferta` (`Estado`),
+  CONSTRAINT `FK_EstadosUsuarioOferta` FOREIGN KEY (`Estado`) REFERENCES `estados` (`Id`),
   CONSTRAINT `FK_RELACION_OFERTA` FOREIGN KEY (`IdOferta`) REFERENCES `oferta` (`Id`),
   CONSTRAINT `FK_RELACION_USUARIO` FOREIGN KEY (`IdUsuario`) REFERENCES `usuario` (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -154,7 +181,7 @@ CREATE TABLE `usuario_oferta` (
 
 LOCK TABLES `usuario_oferta` WRITE;
 /*!40000 ALTER TABLE `usuario_oferta` DISABLE KEYS */;
-INSERT INTO `usuario_oferta` VALUES (1,12,2,'2025-03-19 20:43:43.000000',1);
+INSERT INTO `usuario_oferta` VALUES (3,12,4,'2025-03-26 19:28:24.000000',1);
 /*!40000 ALTER TABLE `usuario_oferta` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -221,14 +248,16 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ActualizarOferta`(pId bigint(20)
 																  pIdPuesto bigint(20), 
 																  pSalario decimal(10,2), 
 																  pHorario varchar(255),
-                                                                  pEstado bit)
+                                                                  pEstado bit,
+                                                                  pImagen varchar(2500))
 BEGIN
 
 	UPDATE oferta
 	SET IdPuesto = pIdPuesto,
 		Salario = pSalario,
 		Horario = pHorario,
-        Estado = pEstado
+        Estado = pEstado,
+        Imagen = CASE WHEN pImagen = '' THEN Imagen ELSE pImagen END
 	WHERE Id = pId;
     
 END ;;
@@ -310,7 +339,8 @@ BEGIN
 			Horario,
             Estado,
             CASE WHEN Estado = 1 THEN 'Activo' ELSE 'Inactivo' END DescripcionEstado,
-            CASE WHEN Estado = 1 THEN 'checked' ELSE '' END IndicadorEstado
+            CASE WHEN Estado = 1 THEN 'checked' ELSE '' END IndicadorEstado,
+            Imagen
 	FROM 	oferta O
     INNER JOIN puesto P ON O.IdPuesto = P.Id
     WHERE O.Id = pId;
@@ -369,13 +399,22 @@ DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ConsultarOfertasUsuario`(pId bigint(20))
 BEGIN
 
-	SELECT	Id,
+	SELECT	UO.Id,
 			IdUsuario,
 			IdOferta,
 			Fecha,
-			Estado
-		FROM usuario_oferta
-	WHERE IdUsuario = pId;
+			E.Descripcion 'DescripcionEstado',
+            O.Salario, 
+			O.Horario,
+            O.Imagen,
+            P.Nombre,
+            P.Descripcion
+		FROM usuario_oferta UO
+        INNER JOIN oferta O ON UO.IdOferta = O.Id
+        INNER JOIN puesto P ON O.IdPuesto = P.Id
+        INNER JOIN estados E ON UO.Estado = E.Id
+	WHERE IdUsuario = pId
+    ORDER BY IdOferta;
     
 END ;;
 DELIMITER ;
@@ -472,11 +511,14 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CrearOferta`(pIdPuesto bigint(20), pSalario decimal(10,2), pHorario varchar(255))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CrearOferta`(pIdPuesto bigint(20), 
+															 pSalario decimal(10,2), 
+                                                             pHorario varchar(255),
+                                                             pImagen varchar(2500))
 BEGIN
 
-	INSERT INTO oferta(IdPuesto,Salario,Horario,Estado)
-	VALUES (pIdPuesto,pSalario,pHorario,1);
+	INSERT INTO oferta(IdPuesto,Salario,Horario,Estado,Imagen)
+	VALUES (pIdPuesto,pSalario,pHorario,1,pImagen);
 
 END ;;
 DELIMITER ;
@@ -635,4 +677,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-20  0:12:05
+-- Dump completed on 2025-03-27  7:56:15
