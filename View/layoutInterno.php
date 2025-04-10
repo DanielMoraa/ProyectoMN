@@ -90,6 +90,12 @@
                     <a class="nav-link" href="../Ofertas/consultarOfertas.php">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
                         <span>Mant. Ofertas</span></a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../Ofertas/consultarOfertas.php">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>Seg. Ofertas</span></a>
                 </li>';
         }
         else
@@ -98,7 +104,14 @@
                     <a class="nav-link" href="../Ofertas/consultarOfertasDisponibles.php">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
                         <span>Ofertas Disponibles</span></a>
-                </li>';
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link" href="../Ofertas/consultarOfertasAplicadas.php">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>Ofertas Aplicadas</span></a>
+                </li>
+                ';
         }
 
         echo '<hr class="sidebar-divider">

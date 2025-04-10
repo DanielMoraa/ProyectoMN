@@ -1,5 +1,5 @@
 <?php
-    include_once $_SERVER["DOCUMENT_ROOT"] . "/Proyecto/Controller/OfertasController.php";
+    include_once $_SERVER["DOCUMENT_ROOT"] . "/Proyecto/Controller/OfertasUsuarioController.php";
     include_once $_SERVER["DOCUMENT_ROOT"] . "/Proyecto/View/layoutInterno.php";
 ?>
 
@@ -21,7 +21,7 @@
 
                 <div class="container-fluid">
 
-                <h5>Consulta de Ofertas Disponibles</h5>
+                <h5>Consulta de Ofertas Aplicadas</h5>
 
                 <br/><br/>
 
@@ -30,25 +30,23 @@
                             <tr>
                                 <th>#</th>
                                 <th>Puesto</th>
-                                <th>Descripción</th>
+                                <th>Estado</th>
                                 <th>Salario</th>
                                 <th>Horario</th>
-                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
-                                $datos = ConsultarOfertas(true);
+                                $datos = ConsultarOfertasUsuario($_SESSION["IdUsuario"]);
 
                                 while($row = mysqli_fetch_array($datos))
                                 {
                                     echo "<tr>";
-                                    echo "<td>" . $row["Id"] . "</td>";
+                                    echo "<td>" . $row["IdOferta"] . "</td>";
                                     echo "<td>" . $row["Nombre"] . "</td>";
-                                    echo "<td>" . $row["Descripcion"] . "</td>";
+                                    echo "<td>" . $row["DescripcionEstado"] . "</td>";
                                     echo "<td>" . $row["Salario"] . "</td>";
-                                    echo "<td>" . $row["Horario"] . "</td>";
-                                    echo "<td><input type='button' class='btn btn-outline-primary' value='Ver Detalle'></td>";
+                                    echo "<td>" . $row["Horario"] . "</td>";                                    
                                     echo "</tr>";
                                 }
                             ?>

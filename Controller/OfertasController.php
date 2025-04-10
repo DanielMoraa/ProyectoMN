@@ -6,6 +6,11 @@
         return ConsultarOfertasModel($estado);
     }
 
+    function ConsultarOfertasPopulares()
+    {
+        return ConsultarOfertasPopularesModel();
+    }
+
     function ConsultarOferta($id)
     {
         $resultado = ConsultarOfertaModel($id);

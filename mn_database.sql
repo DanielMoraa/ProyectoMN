@@ -67,7 +67,7 @@ CREATE TABLE `oferta` (
 
 LOCK TABLES `oferta` WRITE;
 /*!40000 ALTER TABLE `oferta` DISABLE KEYS */;
-INSERT INTO `oferta` VALUES (4,6,5350.00,'Lunes a Sábado de 8:00 a 18:00',_binary '','../Img/R.png'),(5,6,3250.00,'Lunes a Viernes de 8:00 a 17:00',_binary '','../Img/logo1.png'),(6,6,3250.00,'Lunes a Viernes de 8:00 a 17:00',_binary '','../Img/logo1.png');
+INSERT INTO `oferta` VALUES (4,6,5350.00,'Lunes a Sábado de 8:00 a 18:00',_binary '','../Img/R.png'),(5,6,2250.00,'Lunes a Viernes de 8:00 a 17:00',_binary '','../Img/logo1.png'),(6,6,3250.00,'Lunes a Viernes de 8:00 a 17:00',_binary '','../Img/logo1.png');
 /*!40000 ALTER TABLE `oferta` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -139,7 +139,7 @@ CREATE TABLE `usuario` (
   UNIQUE KEY `Uk_Correo` (`Correo`),
   KEY `FK_UsuarioPerfil` (`IdPerfil`),
   CONSTRAINT `FK_UsuarioPerfil` FOREIGN KEY (`IdPerfil`) REFERENCES `perfil` (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -148,7 +148,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (5,'119020345','ROBERT ARTURO QUESADA BORBON','rquesada20345@ufide.ac.cr','20345',1),(12,'305230298','IGNACIO ENRIQUE VARGAS MENDOZA','ivargas30298@ufide.ac.cr','30298',2);
+INSERT INTO `usuario` VALUES (5,'119020345','ROBERT ARTURO QUESADA BORBON','rquesada20345@ufide.ac.cr','20345',1),(12,'305230298','IGNACIO ENRIQUE VARGAS MENDOZA','ivargas30298@ufide.ac.cr','30298',2),(13,'304590415','EDUARDO JOSE CALVO CASTILLO','ecalvo90415@ufide.ac.cr','90415',2),(14,'304590416','FRANCINI DE LOS ANGELES ROMERO ARAYA','ecalvo90416@ufide.ac.cr','90416',2);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -172,7 +172,7 @@ CREATE TABLE `usuario_oferta` (
   CONSTRAINT `FK_EstadosUsuarioOferta` FOREIGN KEY (`Estado`) REFERENCES `estados` (`Id`),
   CONSTRAINT `FK_RELACION_OFERTA` FOREIGN KEY (`IdOferta`) REFERENCES `oferta` (`Id`),
   CONSTRAINT `FK_RELACION_USUARIO` FOREIGN KEY (`IdUsuario`) REFERENCES `usuario` (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -181,7 +181,7 @@ CREATE TABLE `usuario_oferta` (
 
 LOCK TABLES `usuario_oferta` WRITE;
 /*!40000 ALTER TABLE `usuario_oferta` DISABLE KEYS */;
-INSERT INTO `usuario_oferta` VALUES (3,12,4,'2025-03-26 19:28:24.000000',1);
+INSERT INTO `usuario_oferta` VALUES (6,12,5,'2025-04-02 20:47:12.000000',1),(7,13,5,'2025-04-02 20:48:53.000000',1),(8,13,5,'2025-04-02 20:50:43.000000',1);
 /*!40000 ALTER TABLE `usuario_oferta` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -318,6 +318,31 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `SP_AplicarOferta` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_AplicarOferta`(
+	pIdOferta 	bigint(11),
+	pIdUsuario  bigint(11)
+)
+BEGIN
+
+	INSERT INTO usuario_oferta(`IdUsuario`,`IdOferta`,`Fecha`,`Estado`)
+	VALUES (pIdUsuario, pIdOferta,NOW(),1);
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `SP_ConsultarOferta` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -375,10 +400,57 @@ BEGIN
 			Salario,
 			Horario,
             Estado,
-            CASE WHEN Estado = 1 THEN 'Activo' ELSE 'Inactivo' END DescripcionEstado
+            CASE WHEN Estado = 1 THEN 'Activo' ELSE 'Inactivo' END DescripcionEstado,
+            Imagen
 	FROM 	oferta O
     INNER JOIN puesto P ON O.IdPuesto = P.Id
     WHERE Estado = IFNULL(pEstado,Estado);
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `SP_ConsultarOfertasPopulares` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ConsultarOfertasPopulares`()
+BEGIN
+    
+    -- MUESTRA EL TOP 4 DE LAS OFERTAS MÁS APLICADAS 
+    SELECT  O.Id,
+			IdPuesto,
+            P.Nombre,
+            P.Descripcion,
+			Salario,
+			Horario,
+            O.Estado,
+            CASE WHEN O.Estado = 1 THEN 'Activo' ELSE 'Inactivo' END DescripcionEstado,
+            Imagen,
+            COUNT(UO.IdOferta) AS CANTIDAD_APLICACIONES
+	FROM 	oferta O
+    INNER JOIN puesto P ON O.IdPuesto = P.Id
+    INNER JOIN usuario_oferta UO ON O.Id = UO.IdOferta
+    WHERE O.Estado = 1
+    group by O.Id,
+			IdPuesto,
+            P.Nombre,
+            P.Descripcion,
+			Salario,
+			Horario,
+            O.Estado,
+            DescripcionEstado,
+            Imagen
+	ORDER BY CANTIDAD_APLICACIONES DESC, O.SALARIO DESC
+    LIMIT 4;
 
 END ;;
 DELIMITER ;
@@ -677,4 +749,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-27  7:56:15
+-- Dump completed on 2025-04-02 20:54:41

@@ -20,4 +20,25 @@
         }        
     }
 
+    function AplicarOfertaModel($idOferta,$idUsuario)
+    {
+        try
+        {
+            $context = AbrirBaseDatos();
+
+            $sentencia = "CALL SP_AplicarOferta('$idOferta','$idUsuario')";
+            $resultado = $context -> query($sentencia);
+    
+            CerrarBaseDatos($context);
+
+            return $resultado;
+        }
+        catch(Exception $error)
+        {
+            return false;
+        }        
+    }
+
+    
+
 ?>

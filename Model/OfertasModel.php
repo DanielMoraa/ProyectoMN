@@ -19,6 +19,24 @@
         }        
     }
 
+    function ConsultarOfertasPopularesModel()
+    {
+        try
+        {
+            $context = AbrirBaseDatos();
+
+            $sentencia = "CALL SP_ConsultarOfertasPopulares()";
+            $resultado = $context -> query($sentencia);
+    
+            CerrarBaseDatos($context);
+            return $resultado;
+        }
+        catch(Exception $error)
+        {
+            return null;
+        }        
+    }
+
     function ConsultarOfertaModel($id)
     {
         try
