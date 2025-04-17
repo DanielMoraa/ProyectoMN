@@ -172,7 +172,7 @@ CREATE TABLE `usuario_oferta` (
   CONSTRAINT `FK_EstadosUsuarioOferta` FOREIGN KEY (`Estado`) REFERENCES `estados` (`Id`),
   CONSTRAINT `FK_RELACION_OFERTA` FOREIGN KEY (`IdOferta`) REFERENCES `oferta` (`Id`),
   CONSTRAINT `FK_RELACION_USUARIO` FOREIGN KEY (`IdUsuario`) REFERENCES `usuario` (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -181,13 +181,38 @@ CREATE TABLE `usuario_oferta` (
 
 LOCK TABLES `usuario_oferta` WRITE;
 /*!40000 ALTER TABLE `usuario_oferta` DISABLE KEYS */;
-INSERT INTO `usuario_oferta` VALUES (6,12,5,'2025-04-02 20:47:12.000000',2),(7,13,5,'2025-04-02 20:48:53.000000',3),(9,12,4,'2025-04-09 18:47:27.000000',1),(10,12,6,'2025-04-09 18:47:33.000000',4),(11,12,7,'2025-04-09 19:17:28.000000',5);
+INSERT INTO `usuario_oferta` VALUES (1,12,7,'2025-04-16 18:27:18.000000',3),(2,12,4,'2025-04-16 18:27:23.000000',1),(3,12,6,'2025-04-16 18:27:31.000000',4),(4,12,5,'2025-04-16 18:27:36.000000',5),(5,13,7,'2025-04-16 18:40:14.000000',2),(6,13,4,'2025-04-16 18:40:19.000000',1);
 /*!40000 ALTER TABLE `usuario_oferta` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
 -- Dumping routines for database 'mn_database'
 --
+/*!50003 DROP PROCEDURE IF EXISTS `ConsultarEstadisticas` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ConsultarEstadisticas`()
+BEGIN
+
+	SELECT 	COUNT(UO.Id) Cantidad, E.Descripcion
+    FROM 	USUARIO_OFERTA UO
+    INNER JOIN ESTADOS E ON UO.Estado = E.Id
+    GROUP BY E.Descripcion
+    ORDER BY UO.Estado;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `SP_ActualizarContrasenna` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -527,7 +552,7 @@ BEGIN
             DescripcionEstado,
             Imagen
 	ORDER BY CANTIDAD_APLICACIONES DESC, O.SALARIO DESC
-    LIMIT 3;
+    LIMIT 8;
 
 END ;;
 DELIMITER ;
@@ -833,4 +858,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-04-09 21:11:59
+-- Dump completed on 2025-04-16 20:03:42

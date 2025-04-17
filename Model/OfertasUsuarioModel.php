@@ -77,4 +77,23 @@
         }        
     }  
 
+    function ConsultarEstadisticasModel()
+    {
+        try
+        {
+            $context = AbrirBaseDatos();
+
+            $sentencia = "CALL ConsultarEstadisticas()";
+            $resultado = $context -> query($sentencia);
+    
+            CerrarBaseDatos($context);
+
+            return $resultado;
+        }
+        catch(Exception $error)
+        {
+            return null;
+        }        
+    }  
+
 ?>

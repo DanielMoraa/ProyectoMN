@@ -1,4 +1,14 @@
 <?php
+
+    if(session_status() == PHP_SESSION_NONE){
+        session_start();
+    }
+
+    if(isset($_SESSION["IdPerfil"]) && $_SESSION["IdPerfil"] == "1")
+    {
+        header('location: estadisticas.php');
+    }
+
     include_once $_SERVER["DOCUMENT_ROOT"] . "/Proyecto/Controller/OfertasController.php";
     include_once $_SERVER["DOCUMENT_ROOT"] . "/Proyecto/Controller/OfertasUsuarioController.php";
     include_once $_SERVER["DOCUMENT_ROOT"] . "/Proyecto/View/layoutInterno.php";

@@ -49,8 +49,23 @@
         {
             $_POST["Message"] = "No se ha podido actualizar el estado de la participación #" . $id;
         }
-
     }
-    
+
+    function ConsultarEstadisticas()
+    {
+        return ConsultarEstadisticasModel();
+    } 
+
+    if(isset($_POST["ConsultarEstadisticasGrafico"]))
+    {
+        $datos = ConsultarEstadisticasModel();
+
+        while($row = mysqli_fetch_array($datos))
+        {
+            $lista[] = $row;
+        }
+
+        echo json_encode($lista);
+    } 
 
 ?>
