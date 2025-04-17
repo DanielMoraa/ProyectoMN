@@ -93,7 +93,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="../Ofertas/consultarOfertas.php">
+                    <a class="nav-link" href="../Ofertas/seguimientoOfertas.php">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
                         <span>Seg. Ofertas</span></a>
                 </li>';

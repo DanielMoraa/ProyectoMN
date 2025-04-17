@@ -27,12 +27,18 @@
                     <a class="btn btn-outline-primary" href="agregarOfertas.php"><i class="fa fa-plus"></i> Agregar </a>
                 </div>
 
+                <?php
+                                        if(isset($_POST["Message"]))
+                                        {
+                                            echo '<div class="alert alert-warning Mensajes">' . $_POST["Message"] . '</div>';                                   
+                                        }
+                                    ?>
+
                     <table id="example" class="table">
                         <thead>
                             <tr>
                                 <th>#</th>
                                 <th>Puesto</th>
-                                <th>Descripción</th>
                                 <th>Salario</th>
                                 <th>Horario</th>
                                 <th>Estado</th>
@@ -48,8 +54,7 @@
                                     echo "<tr>";
                                     echo "<td>" . $row["Id"] . "</td>";
                                     echo "<td>" . $row["Nombre"] . "</td>";
-                                    echo "<td>" . $row["Descripcion"] . "</td>";
-                                    echo "<td>" . $row["Salario"] . "</td>";
+                                    echo "<td> $ " . $row["Salario"] . "</td>";
                                     echo "<td>" . $row["Horario"] . "</td>";
                                     echo "<td>" . $row["DescripcionEstado"] . "</td>";
                                     echo "<td><a href='actualizarOfertas.php?q=" . $row["Id"] . "'><i class='fa fa-edit'></i></td>";
